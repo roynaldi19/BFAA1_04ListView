@@ -1,15 +1,14 @@
 package com.example.bfaa1_04listview
 
 import android.content.res.TypedArray
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
+
 
     private lateinit var adapter: HeroAdapter
     private lateinit var dataName: Array<String>
@@ -21,19 +20,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        lv_list
-
+        val listView: ListView = findViewById(R.id.lv_list)
         adapter = HeroAdapter(this)
-
-        lv_list.adapter = adapter
+        listView.adapter = adapter
 
         prepare()
         addItem()
 
-        lv_list.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+        listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             Toast.makeText(this@MainActivity, heroes[position].name, Toast.LENGTH_SHORT).show()
         }
-
     }
 
     private fun prepare() {
@@ -53,4 +49,6 @@ class MainActivity : AppCompatActivity() {
         }
         adapter.heroes = heroes
     }
+
+
 }

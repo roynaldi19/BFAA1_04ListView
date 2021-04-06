@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import kotlinx.android.synthetic.main.item_hero.view.*
+import android.widget.ImageView
+import android.widget.TextView
 
 class HeroAdapter internal constructor(private val context: Context) : BaseAdapter() {
-
 
     internal var heroes = arrayListOf<Hero>()
 
@@ -18,7 +18,7 @@ class HeroAdapter internal constructor(private val context: Context) : BaseAdapt
 
     override fun getItemId(i: Int): Long = i.toLong()
 
-    override fun getView(position: Int, view: View?, viewGroup: ViewGroup): View {
+    override fun getView(position: Int, view: View?, viewGroup: ViewGroup?): View {
         var itemView = view
         if (itemView == null) {
             itemView = LayoutInflater.from(context).inflate(R.layout.item_hero, viewGroup, false)
@@ -29,15 +29,18 @@ class HeroAdapter internal constructor(private val context: Context) : BaseAdapt
         val hero = getItem(position) as Hero
         viewHolder.bind(hero)
         return itemView
+
     }
 
-    inner class ViewHolder constructor(private val view: View) {
-        fun bind(hero: Hero) {
-            with(view) {
-                txt_name.text = hero.name
-                txt_description.text = hero.description
-                img_photo.setImageResource(hero.photo)
-            }
+    private inner class ViewHolder internal constructor(view: View) {
+        private val txtName: TextView = view.findViewById(R.id.txt_name)
+        private val txtDescription: TextView = view.findViewById(R.id.txt_description)
+        private val imgPhoto: ImageView = view.findViewById(R.id.img_photo)
+
+        internal fun bind(hero: Hero) {
+            txtName.text = hero.name
+            txtDescription.text = hero.description
+            imgPhoto.setImageResource(hero.photo)
         }
     }
 }
